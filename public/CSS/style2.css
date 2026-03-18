@@ -1,0 +1,115 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #000;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+form {
+  background: rgba(0, 0, 0, 0.85);
+  border: 2px solid #00ffe5;
+  padding: 40px 50px;
+  border-radius: 15px;
+  text-align: center;
+  width: 350px;
+  box-shadow: 0 0 10px #00ffe5;
+}
+
+form h2 {
+  color: #00ffe5;
+  margin-bottom: 25px;
+  text-shadow: 0 0 3px #00ffe5;
+}
+
+label {
+  color: #00ffe5;
+  font-size: 14px;
+  display: block;
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  border: 2px solid #00ffe5;
+  background: transparent;
+  color: white;
+  border-radius: 8px;
+  outline: none;
+  margin-bottom: 15px;
+  transition: 0.3s;
+}
+
+input:focus {
+  box-shadow: 0 0 10px #00ffe5;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #00ffe5;
+  background: transparent;
+  color: #00ffe5;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  font-weight: bold;
+  transition: 0.3s;
+  font-size: 13px;
+}
+
+button:hover {
+  background: #00ffe5;
+  color: black;
+  box-shadow: 0 0 15px #00ffe5;
+  font-size: 20px;
+}
+.H3 {
+  color: rgb(32, 212, 65) !important;
+}
+.f {
+  font-size: 17px;
+}
+
+#a {
+  font-size: 20px !important;
+  color: #ff0000 !important;
+  margin-left: 86px !important;
+  user-select: none !important;
+  text-decoration: none !important;
+}
+.card {
+  position: relative;
+}
+
+.signup-link {
+  position: relative;
+  top: -33px;
+  right: -122px;
+  text-decoration-style: wavy rgb(0, 229, 255);
+  color: rgb(0, 255, 208);
+  font-size: 23px !important;
+  user-select: none;
+}
+
+#guest {
+  text-decoration: none !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.pLogin {
+  color: aqua !important;
+  font-size: 25px !important;
+  position: relative;
+  top: -25px;
+  left: 125px;
+}

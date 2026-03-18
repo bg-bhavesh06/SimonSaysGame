@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simon-Say-Game</title>
+    <link rel="stylesheet" href="/CSS/style.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+  </head>
+  <body> 
+    <div>
+       <% if(name){ %>
+          <div class="welcome-user">
+              <p>WellCome <%= name %>👋</p>
+          </div>
+        <% } %>
+    </div>
+
+    <h1>Simon-Game-Says</h1>
+        <% if(message){ %>
+          <div class="login-card success">
+            <%= message %>
+          </div>
+      <% } %>
+    <h2 id="Presstostart">Press key to Start...</h2>
+    <button id="start-btn">Start Game</button>
+
+    <div class="btn-container">
+      <div class="line-one">
+        <div class="btn red" type="button" id="red"></div>
+        <br />
+        &nbsp;
+        <div class="btn yellow" type="button" id="yellow"></div>
+      </div>
+
+      <div class="line-two">
+        <div class="btn green" type="button" id="green"></div>
+        <br />
+        &nbsp;
+        <div class="btn purple" type="button" id="purple"></div>
+      </div>
+    </div>
+    <br />
+
+    <button><a href="/" class="icone">How To Play</a></button>
+
+    <script src="/JS/app.js"></script>
+  </body>
+</html>

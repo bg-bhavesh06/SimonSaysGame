@@ -1,0 +1,255 @@
+body {
+  text-align: center;
+  font-family: "Press Start 2P", cursive;
+  background: radial-gradient(circle at center, #111 0%, #000 100%);
+  color: #00ffcc;
+}
+
+h1 {
+  margin-top: 22px;
+  font-size: 1.3rem;
+  text-shadow: 0 0 10px #00ffcc;
+}
+
+h2 {
+  font-size: 0.9rem;
+  margin-top: 20px;
+  color: #fff;
+}
+
+#Presstostart {
+  font-size: 20px;
+  user-select: none;
+}
+
+button {
+  margin-top: 3px;
+  padding: 7px;
+  font-size: larger;
+  font-family: "Press Start 2P", cursive;
+  border: 3px solid #00ffcc;
+  background: transparent;
+  color: #00ffcc;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #00ffcc;
+  color: black;
+  box-shadow: 0 0 15px #00ffcc;
+}
+
+.btn-container {
+  display: grid;
+  grid-template-columns: repeat(2, 220px);
+  row-gap: 80px;
+  column-gap: 80px;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  user-select: none;
+}
+
+.btn {
+  width: 220px;
+  height: 220px;
+  border-radius: 20px;
+  border: 6px solid white;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn:active {
+  transform: scale(0.9);
+}
+
+.red {
+  background: #ff004c;
+  box-shadow: 0 0 20px #ff004c;
+}
+
+.yellow {
+  background: #ffe600;
+  box-shadow: 0 0 20px #ffe600;
+}
+
+.green {
+  background: #00ff66;
+  box-shadow: 0 0 20px #00ff66;
+}
+
+.purple {
+  background: #7a00ff;
+  box-shadow: 0 0 20px #7a00ff;
+}
+
+.flash {
+  background: white !important;
+  box-shadow: 0 0 40px white;
+}
+
+.userflash {
+  opacity: 0.6;
+}
+
+.instructions {
+  font-size: 25px;
+}
+
+.a {
+  color: #fff !important;
+}
+
+.c {
+  color: #fff !important;
+}
+
+.e {
+  color: #fff !important;
+}
+
+@media (max-width: 600px) {
+  .btn-container {
+    grid-template-columns: repeat(2, 120px);
+    gap: 25px;
+  }
+
+  .btn {
+    height: 120px;
+    width: 120px;
+  }
+}
+
+#icone {
+  color: #00ffcc !important;
+  text-decoration: none !important;
+  font-size: 20px;
+  padding: 6px;
+}
+
+#icone:hover {
+  color: #000 !important;
+}
+
+.icone {
+  color: #00ffcc !important;
+  text-decoration: none !important;
+  font-size: 20px;
+  padding: 6px;
+}
+
+.icone:hover {
+  color: #000 !important;
+}
+
+#Login {
+  color: #00ffcc;
+  text-decoration: none;
+  font-size: 20px;
+  padding: 6px;
+}
+
+#Login:hover {
+  color: #000;
+}
+
+#SINGUP {
+  color: #00ffcc;
+  text-decoration: none;
+  font-size: 20px;
+  padding: 6px;
+}
+
+#SINGUP:hover {
+  color: #000;
+}
+
+#P {
+  color: #ffe600 !important;
+  font-size: 25px;
+}
+
+.success {
+  color: green;
+  font-weight: bold;
+  margin-left: 84%;
+}
+
+.login-card {
+  position: fixed;
+  top: 20px;
+  right: -350px;
+  background: black;
+  color: #00fff2;
+  padding: 12px 25px;
+  border-radius: 7px;
+  border: 2px solid #00f7ff;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: 0 0 15px #ffffff;
+  animation:
+    slideIn 0.9s forwards,
+    slideOut 0.8s forwards 4s;
+}
+
+@media (max-width: 600px) {
+  .info-page {
+    justify-content: flex-start;
+    padding-top: 20px;
+  }
+
+  .instructions {
+    position: static;
+    font-size: 14px;
+    padding: 0 15px;
+  }
+
+  .welcome-user p {
+    text-align: center;
+  }
+
+  .btn-container {
+    grid-template-columns: repeat(2, minmax(100px, 150px));
+    gap: 20px;
+  }
+
+  .btn {
+    max-width: 150px;
+  }
+
+  button {
+    font-size: 10px;
+    padding: 8px;
+  }
+
+  h1 {
+    font-size: 1rem;
+  }
+
+  h2 {
+    font-size: 0.8rem;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    right: -350px;
+    opacity: 0;
+  }
+  to {
+    right: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    right: 30px;
+    opacity: 1;
+  }
+  to {
+    right: -350px;
+    opacity: 0;
+  }
+}

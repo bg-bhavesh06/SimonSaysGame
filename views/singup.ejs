@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/CSS/style2.css" />
+    <title>SingUp</title>
+  </head>
+  <body>
+    <form action="/singup" method="post">
+       <% if (error) { %>
+          <div style="color:red; font-size:20px; margin-bottom: 20px; text-align:center ;">
+          <%= error %>
+          <a href="login" style="color: red;text-decoration: none; font-size: 19px  !important ;">&#128073; login?</a>
+            </div>
+          <% } %>
+      <span>
+        <h2>SingUp To Be Our Member</h2>
+      </span>
+      <div>
+        <label class="f">FullName :</label>
+        <input type="text" name="listing[FullName]" required />
+
+        <label class="f">Gmail :</label>
+        <input type="email" name="listing[gmail]" required />
+
+        <br /><br />
+
+        <label class="f">Password :</label>
+        <input type="password" name="listing[password]" required />
+        <br /><br />
+        <button type="submit" class="login submitedd">SUBMIT</button>
+      </div>
+    </form>
+    <script src="/JS/app.js"></script>
+  </body>
+</html>
