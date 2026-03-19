@@ -199,9 +199,9 @@ button:hover {
     padding-top: 20px;
   }
 
-  .instructions {
+  .instructions p {
     position: static;
-    font-size: 14px;
+    font-size: 30px;
     padding: 0 15px;
   }
 

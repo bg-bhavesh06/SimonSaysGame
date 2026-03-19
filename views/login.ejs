@@ -10,7 +10,7 @@
   <body>
     <form action="/login" method="post" class="needs-validation" >
       <div class="card">
-        <a href="/singup" class="signup-link">signup?</a>
+        <a href="/signup" class="signup-link" style="text-decoration: none;">signup?</a>
          <% if (error) { %>
       <div style="font-size: 22px; color:red ; text-align:center; margin-bottom:17px ;">
         <%= error %>
@@ -24,7 +24,6 @@
         <label class="f form-label">Gmail :</label>
         <input type="email" class="form-control" name="listing[gmail]" value="<%= gmail || '' %>" required/>
         <br /><br />
-        <br>
         
         <label class="f form-label">
           Password :

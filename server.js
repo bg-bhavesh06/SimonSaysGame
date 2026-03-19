@@ -4,17 +4,28 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 
+//Ports From the .env files
 const PORT = process.env.PORT || 8080;
+const MONGO_URL = process.env.MONGO_URL;
 
 //Express-Session
 const session = require("express-session");
+
+//Express Session-Store
+const MongoStore = require("connect-mongo").default;
 
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: MONGO_URL,
+      collectionName: "sessions",
+    }),
     cookie: { maxAge: 1000 * 60 * 60 * 2 },
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
   }),
 );
 //require the mongoose
@@ -50,7 +61,6 @@ function validateUser(req, res, next) {
 }
 
 //mongoose connection code
-const MONGO_URL = process.env.MONGO_URL;
 async function main() {
   try {
     await mongoose.connect(MONGO_URL);
@@ -110,13 +120,13 @@ app.post("/login", checkLogin, async (req, res) => {
 });
 
 //for the singup B1
-app.get("/singup", (req, res) => {
+app.get("/signup", (req, res) => {
   res.render("singup.ejs", { error: null });
 });
 
 // for the singup B2....
 app.post(
-  "/singup",
+  "/signup",
   validateUser,
   WrapAsync(async (req, res) => {
     const { gmail } = req.body.listing;
