@@ -21,5 +21,11 @@
     <br />
     <button><a href="/login" id="Login">Login</a></button>&nbsp;&nbsp;&nbsp;
     <button><a href="/signup" id="SINGUP">SIGNUP</a></button>
+   <br>
+   <br>
+    <% if (isLoggedIn) { %>
+     <button><a href="/home" class="back-btn">⬅ Back</a></button> 
+    <% } %>
+
   </body>
 </html>

@@ -165,6 +165,18 @@ button:hover {
   color: #000;
 }
 
+.back-btn {
+  color: #00ffcc;
+  text-decoration: none;
+  border-radius: 2px solid #00ffcc !important;
+  font-size: 25px;
+  padding: 5px;
+}
+
+.back-btn:hover {
+  color: #000;
+}
+
 #P {
   color: #ffe600 !important;
   font-size: 25px;

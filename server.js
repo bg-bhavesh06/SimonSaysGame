@@ -19,13 +19,16 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    rolling: true,
     store: MongoStore.create({
       mongoUrl: MONGO_URL,
       collectionName: "sessions",
     }),
-    cookie: { maxAge: 1000 * 60 * 60 * 2 },
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 2,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+    },
   }),
 );
 //require the mongoose
@@ -73,10 +76,25 @@ main();
 
 //home route
 app.get("/", (req, res) => {
-  res.render("how_Play.ejs");
+  if (req.session.isLoggedIn) {
+    return res.redirect("/home");
+  }
 });
 
-app.get("/home", (req, res) => {
+//This will be show that how to play...
+app.get("/how-to-play", (req, res) => {
+  res.render("how_Play.ejs", { isLoggedIn: req.session.isLoggedIn || false });
+});
+
+// this Privlients the direct assing to home Route;
+function isAuthenticated(req, res, next) {
+  if (!req.session.isLoggedIn) {
+    return res.redirect("/login");
+  }
+  next();
+}
+
+app.get("/home", isAuthenticated, (req, res) => {
   let name = req.session.username;
   res.render("index.ejs", { message: null, name: name || null });
 });
@@ -103,7 +121,7 @@ async function checkLogin(req, res, next) {
       });
     }
     req.session.username = user.FullName;
-
+    req.session.isLoggedIn = true; // for the back to game route
     //if Both is correct then call the next();
     next();
   } catch (err) {
@@ -139,6 +157,7 @@ app.post(
     let Newuser = new games({ ...req.body.listing });
     let ans = await Newuser.save();
     req.session.username = ans.FullName;
+    req.session.isLoggedIn = true; // for back to game route
     res.render("index.ejs", {
       message: "SingUp Successful",
       name: req.session.username,
