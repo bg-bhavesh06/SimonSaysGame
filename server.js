@@ -79,6 +79,7 @@ app.get("/", (req, res) => {
   if (req.session.isLoggedIn) {
     return res.redirect("/home");
   }
+  res.render("how_Play.ejs", { isLoggedIn: req.session.isLoggedIn || false });
 });
 
 //This will be show that how to play...
