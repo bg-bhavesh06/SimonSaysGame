@@ -19,16 +19,16 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    rolling: true,
+    // rolling: true,
     store: MongoStore.create({
       mongoUrl: MONGO_URL,
       collectionName: "sessions",
     }),
     cookie: {
       maxAge: 1000 * 60 * 60 * 2,
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
     },
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
   }),
 );
 //require the mongoose
