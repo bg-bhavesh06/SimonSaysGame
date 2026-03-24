@@ -19,7 +19,7 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    // rolling: true,
+    rolling: true,
     store: MongoStore.create({
       mongoUrl: MONGO_URL,
       collectionName: "sessions",
@@ -150,22 +150,33 @@ app.get("/signup", (req, res) => {
 app.post(
   "/signup",
   validateUser,
-  WrapAsync(async (req, res) => {
-    const { gmail } = req.body.listing;
-    let user = await games.findOne({ gmail });
-    if (user) {
-      return res.render("singup.ejs", {
-        error: "Email Exist.Try to ",
+  WrapAsync(async (req, res, next) => {
+    try {
+      const { gmail } = req.body.listing;
+      let user = await games.findOne({ gmail });
+      if (user) {
+        return res.render("singup.ejs", {
+          error: "Email Exist Try to ",
+        });
+      }
+      let Newuser = new games({ ...req.body.listing });
+      let ans = await Newuser.save();
+      req.session.username = ans.FullName;
+      req.session.isLoggedIn = true; // for back to game route
+      res.render("index.ejs", {
+        message: "SingUp Successful",
+        name: req.session.username,
       });
+    } catch (error) {
+      if (error.name === "ValidationError") {
+        if (error.errors.password) {
+          return res.render("singup.ejs", {
+            error: error.errors.password.message,
+          });
+        }
+      }
+      next(error);
     }
-    let Newuser = new games({ ...req.body.listing });
-    let ans = await Newuser.save();
-    req.session.username = ans.FullName;
-    req.session.isLoggedIn = true; // for back to game route
-    res.render("index.ejs", {
-      message: "SingUp Successful",
-      name: req.session.username,
-    });
   }),
 );
 
