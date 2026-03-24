@@ -84,7 +84,10 @@ app.get("/", (req, res) => {
 
 //This will be show that how to play...
 app.get("/how-to-play", (req, res) => {
-  res.render("how_Play.ejs", { isLoggedIn: req.session.isLoggedIn || false });
+  if (!req.session.isLoggedIn) {
+    return res.render("how_Play.ejs", { isLoggedIn: false });
+  }
+  res.render("how_Play.ejs", { isLoggedIn: true });
 });
 
 // this Privlients the direct assing to home Route;
