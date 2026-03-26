@@ -8,15 +8,25 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
   </head>
   <body> 
-    <div>
-       <% if(name){ %>
-          <div class="welcome-user">
-              <p>WellCome <%= name %>👋</p>
-          </div>
-        <% } %>
-    </div>
+    <span>
+      <div>
+         <% if(name){ %>
+            <div class="welcome-user">
+                <p>WellCome <%= name %>👋</p>
+            </div>
+          <% } %>
+        </div>
+    </span>
+    <span>
+      <button id="logoutBtn">
+        <a href="/logout" style="color: aqua;">Log Out</a>
+      </button>
+    </span>
 
     <h1>Simon-Game-Says</h1>
+
+    <!-- for pop_up Logine & Singup Notify -->
+
         <% if(message){ %>
           <div class="login-card success">
             <%= message %>

@@ -205,6 +205,33 @@ button:hover {
     slideOut 0.8s forwards 4s;
 }
 
+#logoutBtn {
+  position: fixed;
+  top: 20px;
+  left: 30px;
+  font-size: 15px;
+  text-decoration: none !important;
+  font-size: 20px;
+  padding: 6px;
+}
+
+@media (max-width: 600px) {
+  #logoutBtn {
+    top: auto;
+    left: 50%;
+    bottom: 15px;
+    transform: translateX(-50%);
+
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+}
+
+#logoutBtn:hover {
+  color: white;
+  background-color: #ff004c;
+}
+
 @media (max-width: 600px) {
   .info-page {
     justify-content: flex-start;
