@@ -4,35 +4,15 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 
-//Ports From the .env files
-const PORT = process.env.PORT || 8080;
-const MONGO_URL = process.env.MONGO_URL;
+//require the mongoose
+const mongoose = require("mongoose");
 
 //Express-Session
 const session = require("express-session");
 
-//Express Session-Store
-const MongoStore = require("connect-mongo").default;
-
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    rolling: true,
-    store: MongoStore.create({
-      mongoUrl: MONGO_URL,
-      collectionName: "sessions",
-    }),
-    cookie: {
-      maxAge: 1000 * 60 * 60 * 2,
-    },
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-  }),
-);
-//require the mongoose
-const mongoose = require("mongoose");
+//Ports From the .env files
+const PORT = process.env.PORT || 8080;
+const MONGO_URL = process.env.MONGO_URL;
 
 //models require Schema
 const games = require("./models/Fmodel.js");
@@ -54,6 +34,33 @@ const ExpressError = require("./utils/customError.js");
 
 //WrapAsync Error
 const WrapAsync = require("./utils/wrapAsync.js");
+
+//Express Session-Store
+const MongoStore = require("connect-mongo").default;
+
+//Cache middleware
+function noCache(req, res, next) {
+  res.set("Cache-Control", "no-store");
+  next();
+}
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    rolling: true,
+    store: MongoStore.create({
+      mongoUrl: MONGO_URL,
+      collectionName: "sessions",
+    }),
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 2,
+    },
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+  }),
+);
 
 //validateUser
 function validateUser(req, res, next) {
@@ -98,7 +105,7 @@ function isAuthenticated(req, res, next) {
   next();
 }
 
-app.get("/home", isAuthenticated, (req, res) => {
+app.get("/home", isAuthenticated, noCache, (req, res) => {
   let name = req.session.username;
   res.render("index.ejs", { message: null, name: name || null });
 });
@@ -179,6 +186,14 @@ app.post(
     }
   }),
 );
+
+//Logout-route
+app.get("/logout", (req, res) => {
+  req.session.destroy(() => {
+    res.clearCookie("connect.sid");
+    res.redirect("/login");
+  });
+});
 
 //password forgot route
 app.get("/forget", (req, res) => {
