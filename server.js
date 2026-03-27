@@ -10,6 +10,9 @@ const mongoose = require("mongoose");
 //Express-Session
 const session = require("express-session");
 
+//Express Session-Store
+const MongoStore = require("connect-mongo").default;
+
 //Ports From the .env files
 const PORT = process.env.PORT || 8080;
 const MONGO_URL = process.env.MONGO_URL;
@@ -35,14 +38,8 @@ const ExpressError = require("./utils/customError.js");
 //WrapAsync Error
 const WrapAsync = require("./utils/wrapAsync.js");
 
-//Express Session-Store
-const MongoStore = require("connect-mongo").default;
-
-//Cache middleware
-function noCache(req, res, next) {
-  res.set("Cache-Control", "no-store");
-  next();
-}
+//Help to Use this Session in the production
+app.set("trust proxy", 1);
 
 app.use(
   session({
@@ -50,25 +47,19 @@ app.use(
     resave: false,
     saveUninitialized: false,
     rolling: true,
+
     store: MongoStore.create({
       mongoUrl: MONGO_URL,
       collectionName: "sessions",
     }),
+
     cookie: {
       maxAge: 1000 * 60 * 60 * 2,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
     },
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
   }),
 );
-
-//validateUser
-function validateUser(req, res, next) {
-  if (!req.body.listing) {
-    return next(new ExpressError(400, "User data missing"));
-  }
-  next();
-}
 
 //mongoose connection code
 async function main() {
@@ -80,6 +71,20 @@ async function main() {
   }
 }
 main();
+
+//Cache middleware
+function noCache(req, res, next) {
+  res.set("Cache-Control", "no-store");
+  next();
+}
+
+//validateUser
+function validateUser(req, res, next) {
+  if (!req.body.listing) {
+    return next(new ExpressError(400, "User data missing"));
+  }
+  next();
+}
 
 //home route
 app.get("/", (req, res) => {

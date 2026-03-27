@@ -205,14 +205,20 @@ button:hover {
     slideOut 0.8s forwards 4s;
 }
 
-#logoutBtn {
+#logoutBtn a {
   position: fixed;
   top: 20px;
   left: 30px;
   font-size: 15px;
+  color: white;
+  border: #ffffff 2px solid;
+  padding: 5px;
   text-decoration: none !important;
-  font-size: 20px;
-  padding: 6px;
+}
+
+#logoutBtn a:hover {
+  background-color: rgb(255, 0, 0);
+  color: white;
 }
 
 @media (max-width: 600px) {

@@ -38,7 +38,7 @@ step.2->
 PORT=8080
 MONGO_URL=<your-mongodb-connection-string> //your mongodb connection string
 SESSION_SECRET=<your-session-secret>
-NODE_ENV=development //This Help You to Run both in localhost and production
+NODE_ENV=development  //This Help You to Run both in localhost and production
 
 step.3 -> Run the application
 -Run this commands = npm start
