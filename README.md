@@ -1,8 +1,8 @@
 # Simon Says Game - Express App
+
 - [Live Demo ](https://simonsaysgame-y8k7.onrender.com/)
-- 
-This is a simple web application built with **Node.js**, **Express**, **MongoDB**, and **EJS**.  
-It features user signup/login with session authentication and a Simon Says style game interface.
+- This is a simple web application built with **Node.js**, **Express**, **MongoDB**, and **EJS**.  
+  It features user signup/login with session authentication and a Simon Says style game interface.
 
 ---
 
@@ -36,9 +36,9 @@ step.2->
 - put this code
 
 PORT=8080
-MONGO_URL=<your-mongodb-connection-string> //your mongodb connection string
+MONGO_URL=<your-mongodb-connection-string> //your mongodb connection string.
 SESSION_SECRET=<your-session-secret>
-NODE_ENV=development  //This Help You to Run both in localhost and production
+NODE_ENV=development //This Help You to Run both in localhost and production
 
 step.3 -> Run the application
 -Run this commands = npm start
