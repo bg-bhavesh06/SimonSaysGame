@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 8080;
 const MONGO_URL = process.env.MONGO_URL;
 
 //models require Schema
-const games = require("./models/Fmodel.js");
+const games = require("./models/User.js");
 
 //for the views_folders
 const path = require("path");
@@ -37,6 +37,22 @@ const ExpressError = require("./utils/customError.js");
 
 //WrapAsync Error
 const WrapAsync = require("./utils/wrapAsync.js");
+
+// serverSide Validation's
+const { UserSchema } = require("./Schema.js");
+
+//server Validation for the UseSchema...
+function serverValidationUser(req, res, next) {
+  let { error } = UserSchema.validate(req.body);
+
+  if (error) {
+    let errMsg = error.details[0].message;
+    console.dir(error);
+    return next(new ExpressError(404, "errMg  "));
+  } else {
+    next();
+  }
+}
 
 //Help to Use this Session in the production
 app.set("trust proxy", 1);
@@ -79,11 +95,13 @@ function noCache(req, res, next) {
 }
 
 //validateUser
+
 function validateUser(req, res, next) {
   if (!req.body.listing) {
-    return next(new ExpressError(400, "User data missing"));
+    return next(new ExpressError(404, "user Data Missing"));
+  } else {
+    next();
   }
-  next();
 }
 
 //home route
@@ -162,6 +180,7 @@ app.get("/signup", (req, res) => {
 app.post(
   "/signup",
   validateUser,
+  serverValidationUser,
   WrapAsync(async (req, res, next) => {
     try {
       const { gmail } = req.body.listing;
@@ -171,8 +190,9 @@ app.post(
           error: "Email Already Exist Try to ",
         });
       }
-      let Newuser = new games({ ...req.body.listing });
+      let Newuser = new games(req.body.listing);
       let ans = await Newuser.save();
+
       req.session.username = ans.FullName;
       req.session.isLoggedIn = true; // for back to game route
       res.render("index.ejs", {
@@ -180,23 +200,29 @@ app.post(
         name: req.session.username,
       });
     } catch (error) {
+      //let's do with the with the userInput error...
+
+      // console.log(error);
+
       if (error?.name === "ValidationError") {
         if (error.errors?.mobile)
           return res.render("singup.ejs", {
-            error: error.errors.mobile.message,
+            // error: error.errors.mobile.message,
+            error: "What type of error we say",
           });
+
         if (error.errors?.password)
           return res.render("singup.ejs", {
             error: error.errors.password.message,
+            // error: "this check to error....what",
           });
       }
 
       if (error?.code === 11000 && error.keyPattern?.mobile) {
         return res.render("singup.ejs", {
-          error: "Mobile number already exists",
+          error: "Mobile Number already exists",
         });
       }
-
       next(error);
     }
   }),

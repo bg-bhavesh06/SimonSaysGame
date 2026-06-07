@@ -17,6 +17,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+
     match: [/^\d{10}$/, "Mobile number must be exactly 10 digits"],
     set: (v) => String(v).trim(),
   },
@@ -24,10 +25,10 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    minlength: [4, "Password must be at least 4 characters long"],
+    minlength: [4, "Password least 4 characters long"],
   },
 });
 
-const game = mongoose.model("game", UserSchema);
+const user = mongoose.model("User", UserSchema);
 
-module.exports = game;
+module.exports = user;
